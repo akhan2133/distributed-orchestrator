@@ -1,0 +1,25 @@
+name: "redis_node_failure_recovery"
+description: "Kill one Redis node under load and measure behavior."
+
+phases:
+  - name: "warmup"
+    duration_sec: 30
+    actions:
+      - type: "start_load"
+        target: "all_nodes"
+        rps: 50
+
+  - name: "failure"
+    duration_sec: 20
+    actions:
+      - type: "kill_node"
+        target: "redis-node-1"
+
+  - name: "recovery"
+    duration_sec: 30
+    actions:
+      - type: "restart_node"
+        target: "redis-node-1"
+      - type: "continue_load"
+        target: "all_nodes"
+        rps: 50

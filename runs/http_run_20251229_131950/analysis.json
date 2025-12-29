@@ -1,0 +1,32 @@
+{
+  "baseline_id": "http_baseline_20251229_131950",
+  "run_id": "http_run_20251229_131950",
+  "baseline_summary": {
+    "throughput_rps": 10.868852459016393,
+    "p50_latency_ms": 90.91730117797852,
+    "p95_latency_ms": 115.90547031826443,
+    "error_rate": 0.0
+  },
+  "run_summary": {
+    "throughput_rps": 11.341463414634147,
+    "p50_latency_ms": 90.1861841028387,
+    "p95_latency_ms": 121.6228740082847,
+    "error_rate": 0.07788511902572161
+  },
+  "throughput_drop_pct": -4.348305926498183,
+  "anomaly_windows": [
+    {
+      "start_sec": 30,
+      "end_sec": 47
+    },
+    {
+      "start_sec": 49,
+      "end_sec": 50
+    },
+    {
+      "start_sec": 81,
+      "end_sec": 81
+    }
+  ],
+  "recovery_time_sec": 51.0
+}

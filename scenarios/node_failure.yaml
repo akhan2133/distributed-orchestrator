@@ -1,0 +1,25 @@
+name: "node_failure_recovery"
+description: "Kill one node under load and measure behavior."
+
+phases:
+  - name: "warmup"
+    duration_sec: 30
+    actions:
+      - type: "start_load"
+        target: "all_nodes"
+        rps: 50
+
+  - name: "failure"
+    duration_sec: 20
+    actions:
+      - type: "kill_node"
+        target: "service-node-2"
+
+  - name: "recovery"
+    duration_sec: 30
+    actions:
+      - type: "restart_node"
+        target: "service-node-2"
+      - type: "continue_load"
+        target: "all_nodes"
+        rps: 50

@@ -1,0 +1,17 @@
+name: "baseline_warmup"
+description: "Baseline load with no failures, used for comparison."
+
+phases:
+  - name: "warmup"
+    duration_sec: 30
+    actions:
+      - type: "start_load"
+        target: "all_nodes"
+        rps: 50
+
+  - name: "steady"
+    duration_sec: 30
+    actions:
+      - type: "continue_load"
+        target: "all_nodes"
+        rps: 50

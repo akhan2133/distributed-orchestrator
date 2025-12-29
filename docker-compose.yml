@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  service-node-1:
+    build:
+      context: .
+      dockerfile: service/Dockerfile
+    environment:
+      - NODE_NAME=service-node-1
+    ports:
+      - "8001:8000"
+
+  service-node-2:
+    build:
+      context: .
+      dockerfile: service/Dockerfile
+    environment:
+      - NODE_NAME=service-node-2
+    ports:
+      - "8002:8000"
+
+  service-node-3:
+    build:
+      context: .
+      dockerfile: service/Dockerfile
+    environment:
+      - NODE_NAME=service-node-3
+    ports:
+      - "8003:8000"
+  
+  redis-node-1:
+    image: redis:7
+    container_name: redis-node-1
+    ports:
+      - "6379:6379"
+
+  redis-node-2:
+    image: redis:7
+    container_name: redis-node-2
+    ports:
+      - "6380:6379"

@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pyyaml
+requests
+pandas
+numpy
+redis
+groq
+matplotlib
