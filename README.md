@@ -25,11 +25,11 @@ Runs are defined in YAML:
 - continue load
 - restart nodes
 
-## Works with two backends
+### Works with two backends
 - HTTP service cluster
 - Redis replicated setup
 
-## Load generation
+### Load generation
 - Configurable RPS, runs in background threads.
 
 ### Metrics pipeline
@@ -57,7 +57,7 @@ Uses Groq LLM to generate readable diagnostic reports.
 
 ---
 
-### Repository Structure
+## Repository Structure
 orchestrator/
   coordinator.py          # orchestrates scenarios + agents
   agents.py               # load agents (HTTP + Redis) and control agent
@@ -74,12 +74,12 @@ runs/
 
 --- 
 
-### Getting started
-## Install dependencies 
+## Getting started
+### Install dependencies 
 ```bash
 pip install -r requirements.txt
 ```
-## Bring up the cluster(s)
+### Bring up the cluster(s)
 HTTP or Redis (depending on scenario)
 ```bash
 docker compose up -d
@@ -87,8 +87,8 @@ docker compose up -d
 
 ---
 
-### Running experiments
-## Baseline run
+## Running experiments
+### Baseline run
 ```bash
 python -m orchestrator.coordinator \
   --scenario scenarios/baseline.yaml \
@@ -96,7 +96,7 @@ python -m orchestrator.coordinator \
   --mode http
 ```
 
-## Failure-injection run
+### Failure-injection run
 ```bash
 python -m orchestrator.coordinator \
   --scenario scenarios/failure.yaml \
@@ -106,8 +106,8 @@ python -m orchestrator.coordinator \
 
 ---
 
-### Analyze Results
-## Compute comparison & anomaly detection
+## Analyze Results
+### Compute comparison & anomaly detection
 ```bash
 python -m orchestrator.compare \
   --baseline-id baseline1 \
@@ -122,7 +122,7 @@ Output JSON includes:
 
 ---
 
-### Optional LLM summary (Groq)
+## Optional LLM summary (Groq)
 Set your key:
 ```bash
 export GROQ_API_KEY=your-key
@@ -136,8 +136,8 @@ python -m orchestrator.llm_summary \
 ```
 Model will produce a readable reliability report.
 
-### Visualizations 
-## Throughput timeline
+## Visualizations 
+### Throughput timeline
 ```bash
 python -m orchestrator.visualize_throughput --run-id run1
 ```
@@ -148,7 +148,7 @@ creates:
 runs/run1/throughput.png
 ```
 
-## Baseline vs Failure comparison
+### Baseline vs Failure comparison
 ```bash
 python -m orchestrator.visualize_compare \
   --baseline-id baseline1 \
@@ -163,7 +163,7 @@ runs/run1/compare.png
 
 ---
 
-### Configuration (config.yaml)
+## Configuration (config.yaml)
 ```bash
 # Target services 
 http_nodes:
@@ -195,7 +195,7 @@ All thresholds and behavior are tunable (no code changes needed)
 
 ---
 
-### Testing strategy
+## Testing strategy
 Current tests were validated by:
 - running HTTP scenarios
 - running Redis scenarios
@@ -208,4 +208,3 @@ Future improvements could include:
 - mock-based unit tests for anomaly logic
 - container health checks
 - scenario replay tests
-
