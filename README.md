@@ -15,7 +15,7 @@ It also includes visualization tools for throughput and baseline-vs-run comparis
 
 The goal was to build something that feels like a tiny version of real chaos frameworks (e.g., Chaos Mesh). But understandable and runnable on a laptop.
 
--- 
+---
 
 ## Features:
 ### Scenario-driven failure orchestration
@@ -55,7 +55,7 @@ Automatically finds:
 ### LLM summaries (optional)
 Uses Groq LLM to generate readable diagnostic reports.
 
--- 
+---
 
 ### Repository Structure
 orchestrator/
@@ -72,7 +72,7 @@ orchestrator/
 runs/
   ... (auto-populated per run)
 
--- 
+--- 
 
 ### Getting started
 ## Install dependencies 
@@ -85,7 +85,7 @@ HTTP or Redis (depending on scenario)
 docker compose up -d
 ```
 
--- 
+---
 
 ### Running experiments
 ## Baseline run
@@ -104,7 +104,7 @@ python -m orchestrator.coordinator \
   --mode http
 ```
 
--- 
+---
 
 ### Analyze Results
 ## Compute comparison & anomaly detection
@@ -120,7 +120,7 @@ Output JSON includes:
 - anomaly windows
 - recovery time estimate
 
---
+---
 
 ### Optional LLM summary (Groq)
 Set your key:
@@ -161,7 +161,7 @@ creates:
 runs/run1/compare.png
 ```
 
--- 
+---
 
 ### Configuration (config.yaml)
 ```bash
@@ -193,7 +193,7 @@ llm:
 
 All thresholds and behavior are tunable (no code changes needed)
 
--- 
+---
 
 ### Testing strategy
 Current tests were validated by:
@@ -208,3 +208,4 @@ Future improvements could include:
 - mock-based unit tests for anomaly logic
 - container health checks
 - scenario replay tests
+
