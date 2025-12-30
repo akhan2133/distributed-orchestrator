@@ -56,7 +56,7 @@ Automatically finds:
 Uses Groq LLM to generate readable diagnostic reports.
 
 ---
-
+```bash
 orchestrator/
 │
 ├─ coordinator.py            # orchestrates scenarios + failure actions
@@ -75,7 +75,8 @@ orchestrator/
 │
 └─ runs/                     # auto-generated experiment logs
     └─ <run_id>/metrics.csv, plots, output, etc.
-    
+```
+
 --- 
 
 ## Getting started
@@ -212,5 +213,6 @@ Future improvements could include:
 - mock-based unit tests for anomaly logic
 - container health checks
 - scenario replay tests
+
 
 
