@@ -55,7 +55,7 @@ Automatically finds:
 ### LLM summaries (optional)
 Uses Groq LLM to generate readable diagnostic reports.
 
----
+## Repository structure
 ```bash
 orchestrator/
 │
@@ -213,6 +213,7 @@ Future improvements could include:
 - mock-based unit tests for anomaly logic
 - container health checks
 - scenario replay tests
+
 
 
 
