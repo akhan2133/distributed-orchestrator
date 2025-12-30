@@ -57,21 +57,25 @@ Uses Groq LLM to generate readable diagnostic reports.
 
 ---
 
-## Repository Structure
 orchestrator/
-  coordinator.py          # orchestrates scenarios + agents
-  agents.py               # load agents (HTTP + Redis) and control agent
-  analysis.py             # summarization + anomaly detection
-  llm_summary.py          # optional Groq-based narrative summary
-  visualize_throughput.py # plot throughput curve
-  visualize_compare.py    # compare baseline vs failure
-  config.yaml             # tuning knobs (thresholds, LLM toggle, etc.)
-  scenarios/
-    baseline.yaml
-    failure.yaml
-runs/
-  ... (auto-populated per run)
-
+│
+├─ coordinator.py            # orchestrates scenarios + failure actions
+├─ agents.py                 # load agents (HTTP + Redis) + control agent
+├─ analysis.py               # summarization + anomaly detection logic
+├─ llm_summary.py            # optional Groq-powered run summary
+├─ visualize_throughput.py   # plot throughput over time
+├─ visualize_compare.py      # baseline vs run charts
+├─ config.yaml               # global config & tuning knobs
+│
+├─ scenarios/
+│   ├─ baseline.yaml
+│   ├─ failure.yaml
+│   ├─ redis_node_failure.yaml
+│   └─ baseline_warmup.yaml
+│
+└─ runs/                     # auto-generated experiment logs
+    └─ <run_id>/metrics.csv, plots, output, etc.
+    
 --- 
 
 ## Getting started
@@ -208,3 +212,4 @@ Future improvements could include:
 - mock-based unit tests for anomaly logic
 - container health checks
 - scenario replay tests
+
