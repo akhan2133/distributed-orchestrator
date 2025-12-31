@@ -213,8 +213,125 @@ This produces:
 - runs/run2/throughput.png
 - runs/run2/comparison.png
 
+### HTTP throughput over time (with anomaly windows)
 ![HTTP throughput with anomaly windows](runs/run2/throughput.png)
 
 This plot shows:
 - request throughput over time
 - shaded bands where anomalies were detected (degraded throughput or elevated errors)
+
+### Baseline vs failure comparison
+![Baseline vs failure comparison](runs/run2/comparison.png)
+
+This chart compares baseline vs failure run:
+- throughput
+- p95 latency
+- error rate
+
+### LLM (Groq) Summary
+Set your API key (not committed to Git):
+```bash
+export GROQ_API_KEY="gsk_your_real_key_here"
+```
+
+Then run:
+```bash
+python -m orchestrator.llm_summary \
+  --baseline-id http_baseline_demo \
+  --run-id http_run_demo \
+  --output-path runs/http_run_demo/llm_summary.md
+```
+
+Example output (from a real run):
+**Summary of Baseline vs Failure Run**
+
+The failure run showed some notable differences compared to the baseline:
+* **Throughput**: The run's average throughput (11.34 rps) was 4.35% higher than the baseline (10.87 rps), despite failure injection.
+* **Latency**: 
+  * P50 latency decreased slightly (from 90.92 ms to 90.19 ms).
+  * P95 latency increased (from 115.91 ms to 121.62 ms), indicating heavier tail latency under failure.
+* **Error rate**: The run experienced an error rate of 7.79%, whereas the baseline had no errors.
+* **Anomaly windows**: Three anomaly windows were detected:
+  * 30–47 seconds
+  * 49–50 seconds
+  * 81 seconds
+* **Recovery time**: The system took approximately 51 seconds to recover from the failure, indicating that the system eventually stabilizes but exhibits a noticeable period of degraded behavior.
+
+This gives you a human-readable reliability report you could share with others. 
+
+--- 
+
+## Quick Demo (Redis Mode)
+Redis gives you a nice contrast: it tends to handle failures much more gracefully.
+
+### Baseline
+```bash
+python -m orchestrator.coordinator \
+  --scenario scenarios/baseline_warmup.yaml \
+  --run-id redis_baseline_demo \
+  --mode redis
+```
+
+### Failure scenario
+```bash
+python -m orchestrator.coordinator \
+  --scenario scenarios/redis_node_failure.yaml \
+  --run-id redis_run_demo \
+  --mode redis
+```
+
+### Plot Redis throughput
+```bash
+python -m orchestrator.plot_run \
+  --run-id redis_run_1 \
+  --filename redis_metrics.csv
+```
+
+This generates:
+- runs/redis_run_1/throughput.png
+
+### Redis throughput over time
+![Redis throughput under node failure](runs/redis_run_1/throughput.png)
+
+Typical behavior:
+- throughput stays very stable
+- minimal/no visible impact from killing one Redis node
+- nice contrast to the HTTP example
+
+--- 
+
+## One-command end-to-end demo
+I also added a helper script:
+```bash
+./demo_e2e.sh
+```
+
+This will:
+- bring up docker
+- run HTTP baseline and failure
+- run Redis baseline and failure
+- run analysis
+- generate plots
+- generate an LLM summary (if GROQ_API_KEY is set)
+
+---
+
+## What I learned building this:
+- Averages can lie. You need per-second aggregation and anomaly detection to understand failures.
+- Different backends (e.g. HTTP service vs Redis) exhibit very different failure modes.
+- Config-driven design makes it easy to point the same orchestrator at different systems.
+
+--- 
+
+## Future Work
+Some ideas for extending this:
+- Kubernetes mode (kill pods instead of docker-compose services)
+- latency and packet-loss injection (e.g. via tc or a sidecar)
+- richer dashboards (Grafana/Prometheus integration)
+- support for tracing data (Jaeger, OpenTelemetry)
+- scenario DSL (more complex workflows, branching, etc.)
+
+---
+
+## License
+
