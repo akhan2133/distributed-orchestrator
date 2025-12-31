@@ -291,7 +291,7 @@ This generates:
 - runs/redis_run_1/throughput.png
 
 ### Redis throughput over time
-![Redis throughput under node failure](runs/redis_run_1/throughput.png)
+![Redis throughput under node failure](runs/redis_run1/throughput.png)
 
 Typical behavior:
 - throughput stays very stable
@@ -334,4 +334,4 @@ Some ideas for extending this:
 ---
 
 ## License
-
+This project is licensed under the [MIT License](LICENSE)
